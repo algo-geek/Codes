@@ -26,7 +26,7 @@ int diameter(Node* root, int* h)
     int lh=0;
     int rh=0;
     
-    
+     
     int ld=diameter(root->left, &lh);
     int rd=diameter(root->right, &rh);
     
