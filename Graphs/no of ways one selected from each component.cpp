@@ -6,7 +6,7 @@ vector<vector<int>> a(n);
 vector<bool>v;
 vector<int>compo;
 
-int getComp(int idx)
+int getComp(int idx) // to get size of component
 {
     if(v[idx])
     {

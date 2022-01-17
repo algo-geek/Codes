@@ -5,13 +5,11 @@ class node{
     public:
     int data;
     node* next;
-    node* pre;
     
     node(int val)// constructor
     {
         data=val;
         next=NULL;
-        pre=NULL;
     }
 };
 
@@ -19,23 +17,16 @@ void insertAtHead(node* &head, int val)
 {
     node* n= new node(val);
     n->next=head;
-    
-    if(head!=NULL)// no node in list, we wont be able to access pre of node we add
-    {
-        head->pre=n;
-    }
-    
     head=n;
 }
-
 
 void insertAtTail(node* &head, int val)
 {
     node* n= new node(val);
     
-    if(head==NULL)  //no element in list initially
+    if(head==NULL)//no element in list initially
     {
-        insertAtHead(head, val);
+        head=n;
         return;
     }
     
@@ -45,44 +36,29 @@ void insertAtTail(node* &head, int val)
         temp=temp->next;
     }
     temp->next = n;
-    n->pre=temp;
 }
 
-void deleteAtHead(node* &head)
+void evenodd(node* &head)
 {
-    node* todelete = head;
-    head=head->next;
-    head->pre=NULL;
+    node* odd=head;
+    node* even=head->next;
+    node* evenstart=even;
     
-    delete todelete;
-}
-
-void deletion(node* &head, int pos)
-{
-    
-    if(pos==1)
+    while(odd->next!=NULL && even->next!=NULL)
     {
-       deleteAtHead(head);
-       return;
+        odd->next=even->next;
+        odd=odd->next;
+        even->next=odd->next;
+        even=even->next;
     }
     
-    int c=1;
-    node* temp = head;
-    
-    while(temp!=NULL && c!=pos)
+    if(odd->next!=NULL)
     {
-        temp=temp->next; 
-        c++;
-    }
-
-    temp->pre->next=temp->next;
-    
-    if(temp->next!=NULL)
-    {
-        temp->next->pre=temp->pre;
+        even->next=NULL;
     }
     
-    delete temp;
+    odd->next=evenstart;
+    
 }
 
 void print(node* head)
@@ -99,7 +75,7 @@ void print(node* head)
 int main()
 {
     node*head=NULL;
-    
+
     int n;
     cin>>n;
     
@@ -109,12 +85,8 @@ int main()
         cin>>x;
         insertAtTail(head, x);
     }
-
     print(head);
     
-    insertAtHead(head, 5);
-    print(head);
-    
-    deletion(head, 1);
+    evenodd(head);
     print(head);
 }
