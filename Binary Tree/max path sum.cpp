@@ -23,7 +23,7 @@ int maxpathsum(Node* root, int &ans)
     int l=maxpathsum(root->left, ans);
     int r=maxpathsum(root->right, ans);
     
-    int nodemax=max(max(root->data, root->data+l+r), max(root->data+l, root->data+r));
+    int nodemax=max(max(root->data, root->data+l+r), max(root->data+l, root->data+r)); 
     
     ans=max(ans, nodemax);
     
