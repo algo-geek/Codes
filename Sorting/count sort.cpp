@@ -1,6 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
+#define RANGE 255
+
 void countsort(int a[], int n)
 {
     int k=a[0];
@@ -9,7 +11,9 @@ void countsort(int a[], int n)
         k=max(k, a[i]);
     }
     
-    int count[10]={0};
+    // int count[10]={0};
+    int count[RANGE + 1];
+    memset(count, 0, sizeof(count));
     for(int i=0;i<n;i++)
     {
         count[a[i]]++;
