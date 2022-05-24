@@ -1,61 +1,55 @@
+#include <iostream> 
+using namespace std; 
 
-#include <iostream>
-using namespace std;
 
-void heapify(int arr[], int n, int i)
-{
-	int largest = i; // largest as root
-	int l = 2 * i + 1; // left = 2*i + 1
-	int r = 2 * i + 2; // right = 2*i + 2
+void heapify(int arr[], int n, int i) 
+{ 
+	int largest = i; 
+	int l = 2*i + 1; 
+	int r = 2*i + 2;
+	if (l < n && arr[l] > arr[largest]) 
+		largest = l; 
 
-	// If left child is larger than root
-	if (l < n && arr[l] > arr[largest])
-		largest = l;
+	if (r < n && arr[r] > arr[largest]) 
+		largest = r; 
 
-	// If right child is larger than current largest 
-	if (r < n && arr[r] > arr[largest])
-		largest = r;
+	if (largest != i) 
+	{ 
+		swap(arr[i], arr[largest]); 
+		heapify(arr, n, largest); 
+	} 
+} 
 
-	// If largest is not root
-	if (largest != i) {
-		swap(arr[i], arr[largest]);
-
-		// heapify the affected sub-tree
-		heapify(arr, n, largest);
-	}
-}
-
-void heapSort(int arr[], int n)
-{
-	for (int i = n / 2 - 1; i >= 0; i--)
+void buildheap(int arr[],int n){
+    for (int i = n / 2 - 1; i >= 0; i--) 
 		heapify(arr, n, i);
+}
+void heapSort(int arr[], int n) 
+{  
+	buildheap(arr,n); 
 
-	for (int i = n - 1; i >= 0; i--) {
+	for (int i=n-1; i>0; i--) 
+	{ 
 		swap(arr[0], arr[i]);
-		heapify(arr, i, 0);
-	}
-}
+		heapify(arr, i, 0); 
+	} 
+} 
 
-void printArray(int arr[], int n)
-{
-	for (int i = 0; i < n; ++i)
-		cout << arr[i] << " ";
-	cout << "\n";
-}
+void printArray(int arr[], int n) 
+{ 
+	for (int i=0; i<n; ++i) 
+		cout << arr[i] << " "; 
+	cout << "\n"; 
+} 
+ 
+int main() 
+{ 
+	int arr[] = {12, 11, 13, 5, 6, 7}; 
+	int n = sizeof(arr)/sizeof(arr[0]); 
 
-// Driver program
-int main()
-{
-	int n;
-	cin>>n;
-	
-	int arr[n];
-	
-	for(int i=0;i<n;i++)
-	cin>>arr[i];
+	heapSort(arr, n); 
 
-	heapSort(arr, n);
+	cout << "Sorted array is \n"; 
+	printArray(arr, n); 
+} 
 
-	cout << "Sorted array is \n";
-	printArray(arr, n);
-}
