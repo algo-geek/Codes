@@ -1,49 +1,119 @@
+// lomuto
 #include <bits/stdc++.h>
 using namespace std;
 
-void swap(int a[], int i, int j)
-{
-    int t=a[i];
-    a[i]=a[j];
-    a[j]=t;
-}
-
-int partition(int a[], int l, int r)
-{
-    int pivot=a[r];
+int iPartition(int arr[], int l, int h)
+{   
+    int pivot=arr[h];
     int i=l-1;
-    for(int j=l;j<r;j++)
-    {
-        if(a[j]<pivot)
-        {
-           i++;
-           swap(a,i,j);
+    for(int j=l;j<=h-1;j++){
+        if(arr[j]<pivot){
+            i++;
+            swap(arr[i],arr[j]);
         }
     }
-    swap(a, i+1, r);
+    swap(arr[i+1],arr[h]);
     return i+1;
 }
 
-void quicksort(int a[], int l, int r)
-{
-    if(l<r)
-    {
-        int pi=partition(a, l, r);
-        quicksort(a, l, pi-1);
-        quicksort(a, pi+1, r);
+void qSort(int arr[],int l,int h){
+    if(l<h){
+        int p=iPartition(arr,l,h);
+        qSort(arr,l,p-1);
+        qSort(arr,p+1,h);
+    }
+}
+ 
+int main() {
+	
+    int arr[]={8,4,7,9,3,10,5};
+	
+	int n=sizeof(arr)/sizeof(arr[0]);
+	
+	qSort(arr,0,n-1);
+	
+	for(int x: arr)
+	    cout<<x<<" ";
+}
+
+// hoare
+#include <bits/stdc++.h>
+using namespace std;
+
+int partition(int arr[], int l, int h)
+{   
+    int pivot=arr[l];
+    int i=l-1,j=h+1;
+    while(true){
+        do{
+            i++;
+        }while(arr[i]<pivot);
+        do{
+            j--;
+        }while(arr[j]>pivot);
+        if(i>=j)return j;
+        swap(arr[i],arr[j]);
     }
 }
 
-int main()
-{
-    int n;
-    cin>>n;
-    int a[n];
-    for(int i=0;i<n;i++)
-    cin>>a[i];
-    
-    quicksort(a, 0, n-1);
-    for(int i=0;i<n;i++)
-    cout<<a[i]<<" ";
-    cout<<endl;
+void qSort(int arr[],int l,int h){
+    if(l<h){
+        int p=partition(arr,l,h);
+        qSort(arr,l,p);
+        qSort(arr,p+1,h);
+    }
+}
+ 
+int main() {
+	
+    int arr[]={8,4,7,9,3,10,5};
+	
+	int n=sizeof(arr)/sizeof(arr[0]);
+	
+	qSort(arr,0,n-1);
+	
+	for(int x: arr)
+	    cout<<x<<" ";
+}
+
+// tail recursive
+#include <bits/stdc++.h>
+using namespace std;
+
+int partition(int arr[], int l, int h)
+{   
+    int pivot=arr[l];
+    int i=l-1,j=h+1;
+    while(true){
+        do{
+            i++;
+        }while(arr[i]<pivot);
+        do{
+            j--;
+        }while(arr[j]>pivot);
+        if(i>=j)return j;
+        swap(arr[i],arr[j]);
+    }
+}
+
+void qSort(int arr[],int l,int h){
+    Begin:
+    if(l<h){
+        int p=partition(arr,l,h);
+        qSort(arr,l,p);
+        l=p+1;
+        goto Begin;
+    }
+}
+ 
+int main() {
+	
+    int arr[]={8,4,7,9,3,10,5};
+	
+	int n=sizeof(arr)/sizeof(arr[0]);
+	
+	qSort(arr,0,n-1);
+	
+	for(int x: arr)
+	    cout<<x<<" ";
 }

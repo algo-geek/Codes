@@ -80,9 +80,11 @@ vector<int> mergeArr(vector<vector<int> > &arr)
     }
     
     while(pq.empty()==false){
-        Triplet curr=pq.top();pq.pop();
+        Triplet curr=pq.top();
+        pq.pop();
         res.push_back(curr.val);
-        int ap=curr.aPos;int vp=curr.vPos;
+        int ap=curr.aPos;
+        int vp=curr.vPos;
         if(vp+1<arr[ap].size()){
             Triplet t(arr[ap][vp+1],ap,vp+1);
             pq.push(t);

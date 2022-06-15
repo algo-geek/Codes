@@ -1,47 +1,44 @@
-#include <bits/stdc++.h>
+
+#include <bits/stdc++.h> 
 using namespace std;
 
-bool compare(pair<int, int>p1, pair<int, int>p2)
+bool myCmp(pair <int, int> a, pair <int, int> b)
 {
-    double x1=(double) p1.first/p1.second;
-    double x2=(double) p2.first/p2.second;
-    
-    return x1>x2;
+	double r1 = (double)a.first / a.second;
+
+	double r2 = (double)b.first / b.second;
+
+	return r1 > r2;
 }
 
+double fKnapS(int W, pair <int, int> arr[], int n)
+{
+	sort(arr, arr + n, myCmp);
+	double  res = 0.0;
+
+	for(int i = 0; i < n; i++)
+	{
+		if(arr[i].second <= W)
+		{
+			res += arr[i].first;
+			W = W - arr[i].second;
+		}
+		else
+		{
+			res += arr[i].first * ((double) W / arr[i].second);
+			break;
+		}
+	}
+
+
+	return res;
+}
 int main()
 {
-    int n, w;
-    cin>>n>>w;
-    
-    vector<pair<int, int>>a(n);
+	pair <int, int> arr[] = {make_pair(120, 30), make_pair(100, 20), make_pair(60, 10)};
 
-    for(int i=0;i<n;i++)
-    {
-        cin>>a[i].first>>a[i].second;
-    }
-    
-    sort(a.begin(), a.end(), compare);
-    
-    int r=0;
-    
-    for(int i=0;i<n;i++)
-    {
-        if(w>=a[i].second)
-        {
-            r+=a[i].first;
-            w-=a[i].second;
-            continue;
-            
-        }
-        
-        double vw=(double) a[i].first/a[i].second;
-        r+= vw*w;
-        w=0;
-        break;
-        
-    }
-    
-    cout<<r<<endl;
-    
+	int n = 3, W = 50;
+	cout<<fKnapS(W, arr, n); 
+
+	return 0;
 }

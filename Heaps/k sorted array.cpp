@@ -1,7 +1,7 @@
 #include <bits/stdc++.h> 
 using namespace std; 
 
-int sortK(int arr[], int n, int k) 
+void sortK(int arr[], int n, int k) 
 { 
 	priority_queue<int, vector<int>, greater<int> > pq; 
     

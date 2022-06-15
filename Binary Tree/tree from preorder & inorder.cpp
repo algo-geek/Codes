@@ -1,86 +1,47 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct Node{
-    int data;
-    struct Node* left; 
-    struct Node* right;
-    
-    Node(int val) //constructor for node
-    {
-        data=val;
-        left=NULL;
-        right=NULL;
-    }
-    
+struct Node  
+{ 
+  int key; 
+  struct Node *left; 
+  struct Node *right; 
+  Node(int k){
+      key=k;
+      left=right=NULL;
+  }
 };
 
-void preorder(struct Node* root)
-{
-    if(root==NULL)
-    {
-        // cout<<"0"<<" ";
-        return;
+void inorder(Node *root){
+    if(root!=NULL){
+        inorder(root->left);
+        cout<<root->key<<" ";
+        inorder(root->right);    
     }
-    
-    cout<<root->data<<" ";
-    preorder(root->left);
-    preorder(root->right);
-    
-    
-}
+}  
 
-int search(int inorder[], int st, int end, int curr)
-{
-    for(int i=st;i<=end;i++)
-    {
-        if(inorder[i]==curr)
-        {
-            return i;
+int preIndex=0;
+Node *cTree(int in[],int pre[],int is,int ie){
+    if(is>ie)return NULL;
+    Node *root=new Node(pre[preIndex++]);
+    
+    int inIndex;
+    for(int i=is;i<=ie;i++){
+        if(in[i]==root->key){
+            inIndex=i;
+            break;
         }
     }
-    return -1;
+    root->left=cTree(in, pre, is, inIndex-1);
+    root->right=cTree(in, pre, inIndex+1, ie);
+    return root;
 }
 
-Node* buildTree(int preorder[], int inorder[], int st, int end)
-{
-    static int idx=0;
-    
-    if(st>end)
-    return NULL;
-    
-    int curr=preorder[idx];
-    idx++;
-    
-    Node* node=new Node(curr);
-    
-    if(st==end)// if there is only 1 element in inorder, it has no left & right subtree
-    {
-        return node;
-    }
-    
-    int pos=search(inorder, st, end, curr);
-    node->left=buildTree(preorder, inorder, st, pos-1);
-    node->right=buildTree(preorder, inorder, pos+1, end);
-    
-    return node;
-}
-
-void inorderPrint(Node* root)
-{
-    if(root==NULL)
-    return;
-    
-    inorderPrint(root->left);
-    cout<<root->data<<" ";
-    inorderPrint(root->right);
-}
-
-int main()
-{
-    int preorder[]={1, 2, 4, 3, 5};
-    int inorder[]={4, 2, 1, 5, 3};
-    
-    Node* root=buildTree(preorder, inorder, 0, 4);
-    inorderPrint(root);
+int main() {
+	
+	int in[]={20,10,40,30,50};
+	int pre[]={10,20,30,40,50};
+	int n=sizeof(in)/sizeof(in[0]);
+	Node *root=cTree(in, pre, 0, n-1);
+	inorder(root);
 }

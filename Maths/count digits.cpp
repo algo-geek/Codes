@@ -1,4 +1,4 @@
-//iterative // time: theta(no. of digits)
+//iterative // time: theta(no. of digits) //space: O(1)
 #include <iostream>
 #include <limits.h>
 using namespace std;

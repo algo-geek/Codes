@@ -1,3 +1,4 @@
+// 1
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -17,4 +18,30 @@ void subseq(string s, string ans)
 int main()
 {
     subseq("ABC", "");
+}
+
+// 2
+#include <iostream>
+using namespace std;
+
+
+void printSub(string str, string curr, int index)
+{
+	if(index == str.length())
+	{
+		cout<<curr<<" ";
+		return;
+	}
+
+	printSub(str, curr, index + 1);
+	printSub(str, curr+str[index], index + 1);
+}
+	
+int main() {
+	
+	string str = "ABC";
+    	
+    printSub(str, "", 0);
+	
+	return 0;
 }

@@ -1,5 +1,5 @@
 
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 
 class node{
@@ -43,6 +43,22 @@ void print(node* head)
      cout<<endl;
 }
 
+// naive
+node *revList(node *head)
+{
+    vector<int>a;
+    for(node *curr=head;curr!=NULL;curr=curr->next)
+    {
+        a.push_back(curr->data);
+    }
+    for(node *curr=head;curr!=NULL;curr=curr->next)
+    {
+        curr->data=a.back();
+        a.pop_back();
+    }
+    return head;
+}
+
 node* reverse(node* &head)// iterative method
 {
     node* pre=NULL;
@@ -73,6 +89,14 @@ node* reverse2(node* &head)// recursive method
     return newhead;
 }
 
+// tail recursive
+node *recRevL(node *curr,node *prev){
+    if(curr==NULL)return prev;
+    node *next=curr->next;
+    curr->next=prev;
+    return recRevL(next,curr);
+}
+
 int main()
 {
     int n;
@@ -87,10 +111,15 @@ int main()
         insertAtTail(head, x);
     }
     
-    // node* newhead=reverse(head);
-    // print(newhead);
-    
+    node* newhead=revList(head);
+    print(newhead);
+    cout<<endl;
+    node* newhead=reverse(head);
+    print(newhead);
+    cout<<endl;
     node* newhead=reverse2(head);
+    print(newhead);
+    node* newhead=recRevL(head, NULL);
     print(newhead);
 }
 

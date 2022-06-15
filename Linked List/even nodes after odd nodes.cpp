@@ -52,10 +52,10 @@ void evenodd(node* &head)
         even=even->next;
     }
     
-    if(odd->next!=NULL)
-    {
-        even->next=NULL;
-    }
+    // if(odd->next!=NULL)
+    // {
+    //     even->next=NULL;
+    // }
     
     odd->next=evenstart;
     

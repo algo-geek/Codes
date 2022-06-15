@@ -41,6 +41,18 @@ int diameter(Node* root)
     return max(currD, max(ld, rd));
 }
 
+// efficient
+int res=0;
+int height2(Node *root){
+    if(root==NULL)
+        return 0;
+    int lh=height(root->left);
+    int rh=height(root->right);
+    res=max(res,1+lh+rh);
+    
+        return 1+max(lh,rh);
+}
+
 int main()
 {
     struct Node* root=new Node(1); 
@@ -53,6 +65,8 @@ int main()
     root->right->left=new Node(6);
     root->right->right=new Node(7);
     
-    cout<<diameter(root);
+    cout<<diameter(root)<<endl;
+    cout<<"Height: "<<height2(root)<<endl;
+	cout<<"Diameter: "<<res;
 
 }

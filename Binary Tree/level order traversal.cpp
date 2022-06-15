@@ -6,7 +6,7 @@ struct Node{
     struct Node* left; 
     struct Node* right;
     
-    Node(int val) //constructor for node
+    Node(int val) 
     {
         data=val;
         left=NULL;
@@ -15,6 +15,24 @@ struct Node{
     
 };
 
+// 1
+void printLevel(Node *root){
+    if(root==NULL)return;
+    queue<Node *>q;
+    q.push(root);
+    while(q.empty()==false){
+        Node *curr=q.front();
+        q.pop();
+        cout<<curr->data<<" ";
+        if(curr->left!=NULL)
+            q.push(curr->left);
+        if(curr->right!=NULL)
+            q.push(curr->right);
+    }
+}
+
+
+// 2 
 void printLevelOrder(Node* root)
 {
     if(root==NULL)
@@ -45,9 +63,70 @@ void printLevelOrder(Node* root)
     }
 }
 
+// 3
+void printLevel2(Node *root){
+    if(root==NULL)return;
+    queue<Node *>q;
+    q.push(root);
+    while(q.empty()==false){
+        int count=q.size();
+        for(int i=0;i<count;i++)
+        {
+            Node *curr=q.front();
+            q.pop();
+            cout<<curr->data<<" ";
+
+            if(curr->left!=NULL)
+                q.push(curr->left);
+            if(curr->right!=NULL)
+                q.push(curr->right);
+        }
+        cout<<"\n";
+    }
+} 
+
+// reverse level order
+void reverseLevelOrder(Node* root)
+{
+	stack <Node *> S;
+	queue <Node *> Q;
+	Q.push(root);
+
+	while (Q.empty() == false)
+	{
+	    int count=Q.size();
+        for(int i=0;i<count;i++)
+        {
+		root = Q.front();
+		Q.pop();
+		S.push(root);
+
+		if (root->right)
+			Q.push(root->right); 
+
+		if (root->left)
+			Q.push(root->left);
+        }
+        S.push(NULL);
+	}
+
+	S.pop(); // to remove the last NULL entered into stack
+	while (S.empty() == false)
+	{
+		root = S.top();
+		
+		if(root==NULL)
+		cout<<endl;
+		else
+		cout << root->data << " ";
+		
+		S.pop();
+	}
+}
+
 int main()
 {
-    struct Node* root=new Node(1); //root pointer points to a new Node
+    struct Node* root=new Node(1); 
     root->left=new Node(2);
     root->right=new Node(3);
     
@@ -57,6 +136,10 @@ int main()
     root->right->left=new Node(6);
     root->right->right=new Node(7);
     
+    printLevel(root);
     printLevelOrder(root);
+    printLevel2(root);
+    cout << "Level Order traversal of binary tree is \n";
+	reverseLevelOrder(root);
 
 }

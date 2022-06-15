@@ -14,13 +14,23 @@ class node{
     }
 };
 
+// 1
 void insertAtHead(node* &head, int val)
 {
-    node* n= new node(val);
+    node* n= new node(val); 
     n->next=head;
     head=n;
 }
 
+// 2
+// Node *insertBegin(Node *head,int x){
+//     Node *temp=new Node(x);
+//     temp->next=head;
+//     return temp;
+    
+// }
+
+// 1
 void insertAtTail(node* &head, int val)
 {
     node* n= new node(val);
@@ -38,6 +48,19 @@ void insertAtTail(node* &head, int val)
     }
     temp->next = n;
 }
+
+// 2
+// Node *insertEnd(Node *head,int x){
+//     Node *temp=new Node(x);
+//     if(head==NULL)return temp;
+//     Node *curr=head;
+//     while(curr->next!=NULL){
+//         curr=curr->next;
+//     }
+//     curr->next=temp;
+//     return head;
+    
+// }
 
 void print(node* head)
 {
@@ -64,6 +87,7 @@ bool search(node* head, int key)
      return false;
 }
 
+// 1
 void deleteAtHead(node* &head)
 {
     node* todelete = head;
@@ -71,6 +95,18 @@ void deleteAtHead(node* &head)
     
     delete todelete;
 }
+
+// 2
+// Node *delHead(Node *head){
+//     if(head==NULL)
+//          return NULL;
+//     else
+//      {
+//         Node *temp=head->next;
+//         delete(head);
+//         return temp;
+//     }
+// }
 
 void deletion(node* head, int val)//point val-1 th element next to val+1 th element next
 {
@@ -97,9 +133,20 @@ void deletion(node* head, int val)//point val-1 th element next to val+1 th elem
 int main()
 {
     node*head=NULL;
+    // 1
     // insertAtTail(head, 1);
     // insertAtTail(head, 2);
     // insertAtTail(head, 3);
+
+    // 2
+    // head=insertBegin(head,30);
+	// head=insertBegin(head,20);
+	// head=insertBegin(head,10);
+
+    // delete 2-->
+	// head=delHead(head);
+	// printlist(head);
+
     int n;
     cin>>n;
     
@@ -107,7 +154,8 @@ int main()
     {
         int x;
         cin>>x;
-       insertAtTail(head, x);}
+       insertAtTail(head, x);
+    }
     print(head);
     
     insertAtHead(head, 4);
