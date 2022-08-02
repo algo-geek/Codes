@@ -1,10 +1,13 @@
+// check if s2 is a subsequence of s1
+
 // naive time: O(n* 2^n)
 
 // efficient iterative // O(n+m)
 #include <bits/stdc++.h>
 using namespace std;
 
-bool isSubSeq(string s1, string s2, int n, int m){
+bool isSubSeq(string s1, string s2, int n, int m)
+{
     int j = 0;
     
     for(int i = 0; i < n && j < m; i++){

@@ -1,90 +1,167 @@
+// printing one solution
 #include <bits/stdc++.h>
 using namespace std;
 
-bool isSafe(int** a, int x, int y, int n)
+#define N 4 
+  
+int board[N][N];  
+
+void printSolution(int board[N][N]) 
+{ 
+    for (int i = 0; i < N; i++) { 
+        for (int j = 0; j < N; j++) 
+            printf(" %d ", board[i][j]); 
+        printf("\n"); 
+    } 
+} 
+  
+bool isSafe(int row, int col) 
+{ 
+  // checking for curr row of previous columns 
+    for (int i = 0; i < col; i++) 
+        if (board[row][i]) 
+            return false; 
+  
+  // upper diagonal
+    for (int i = row, j = col; i >= 0 && j >= 0; i--, j--) 
+        if (board[i][j]) 
+            return false; 
+  
+  // lower diagonal
+    for (int i = row, j = col; j >= 0 && i < N; i++, j--) 
+        if (board[i][j]) 
+            return false; 
+  
+    return true; 
+} 
+  
+bool solveRec(int col) 
+{ 
+    if (col == N) 
+        return true; 
+  
+  // tries to place queens by iterating each row 
+    for (int i = 0; i < N; i++) { 
+     
+        if (isSafe(i, col)) 
+        { 
+            board[i][col] = 1; 
+  
+            if (solveRec(col + 1)) 
+                return true; 
+  
+            board[i][col] = 0;
+        } 
+    } 
+  
+    return false; 
+} 
+  
+bool solve() 
 {
-    for(int row=0;row<x;row++)
-    {
-        if(a[row][y]==1)
-        {
-            return false;
-        }
-    }
-    
-    int row=x;
-    int col=y;
-    while(row>=0 && col>=0)
-    {
-        if(a[row][col]==1)
-        {
-            return false;
-        }
-        row--;
-        col--;
-    }
-    
-    row=x;
-    col=y;
-    while(row>=0 && col<n)
-    {
-        if(a[row][col]==1)
-        {
-            return false;
-        }
-        row--;
-        col++;
-    }
-    return true;
+    if (solveRec(0) == false) { 
+        printf("Solution does not exist"); 
+        return false; 
+    } 
+  
+    printSolution(board); 
+    return true; 
 }
 
-bool nQueen(int** a, int x, int n)
-{
-    if(x>=n)// base condition
+int main() {
+	
+	solve(); 
+    return 0; 
+	
+}
+
+// printing all solutions
+#include <bits/stdc++.h>
+using namespace std;
+
+#define N 4 
+  
+int board[N][N];  
+vector<vector<int> > result;
+
+bool isSafe(int row, int col) 
+{ 
+    for (int i = 0; i < col; i++) 
+        if (board[row][i]) 
+            return false; 
+  
+    for (int i = row, j = col; i >= 0 && j >= 0; i--, j--) 
+        if (board[i][j]) 
+            return false; 
+  
+    for (int i = row, j = col; j >= 0 && i < N; i++, j--) 
+        if (board[i][j]) 
+            return false; 
+  
+    return true; 
+} 
+  
+bool solveRec(int col) 
+{ 
+    if (col == N) 
     {
+        // start
+        vector<int> v;
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
+                if (board[i][j] == 1)
+                    v.push_back(j + 1);
+            }
+        }
+        result.push_back(v);
+        // end
         return true;
     }
+  
+  // start
+  bool res = false;
+  // end
+    for (int i = 0; i < N; i++) { 
+     
+        if (isSafe(i, col)) 
+        { 
+            board[i][col] = 1; 
+
+             // start
+            res = solveRec(col + 1) || res;
+             // end
+            board[i][col] = 0;
+        } 
+    } 
+  
+    return res; 
+} 
+  
+// start
+vector<vector<int> > solve2() 
+{
+    result.clear();
     
-    for(int col=0;col<n;col++)
-    {
-        if(isSafe(a, x, col, n))
-        {
-            a[x][col]=1;
-            
-            if(nQueen(a, x+1, n))
-            {
-                return true;
-            }
-            a[x][col]=0;// backtracking
-        }
-    }
-    return false;
+    if (solveRec(0) == false) { 
+        printf("Solution does not exist"); 
+        return {}; 
+    } 
+  
+    sort(result.begin(), result.end());
+    return result;
 }
 
-int main()
-{
-    int n;
-    cin>>n;
-    
-    int** a=new int*[n];
-    
-    for(int i=0;i<n;i++)
-    {
-        a[i]=new int[n];
-        for(int j=0;j<n;j++)
-        a[i][j]=0;
+
+int main() {
+	
+	vector<vector<int> > v = solve2(); 
+	for (auto ar : v) {
+        cout << "[";
+        for (auto it : ar)
+            cout << it << " ";
+        cout << "]";
     }
-    
-    if(nQueen(a, 0, n))
-    {
-        for(int i=0;i<n;i++)
-      {
-        for(int j=0;j<n;j++)
-        {
-            cout<<a[i][j]<<" ";
-        }
-        cout<<endl;
-      }
-      
-    }
-    
+    return 0; 
+	
 }
+// end

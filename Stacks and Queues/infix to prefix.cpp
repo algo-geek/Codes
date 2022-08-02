@@ -1,72 +1,110 @@
-#include <iostream>
-#include <stack>
-#include <math.h>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
-int prec(char c)
+bool isOperator(char c)
 {
-    if(c=='^')
-    return 3;
-    
-    else if(c=='*' || c=='/')
-    return 2;
-    
-    else if(c=='+' || c=='-')
-    return 1;
-    
-    else
-    return -1;
+	return (!isalpha(c) && !isdigit(c));
 }
 
-string infixToPrefix(string s)
+int getPriority(char C)
 {
-    reverse(s.begin(), s.end());
-    stack<char> st;
-    string res;
-    
-    for(int i=0;i<s.size();i++)
-    {
-        if((s[i]>='a' && s[i]<='z') || (s[i]>='A' && s[i]<='Z'))
-        res+=s[i];
-        
-        else if(s[i]==')')
-        st.push(s[i]);
-        
-        else if(s[i]=='(')
-        {
-            while(!st.empty() && st.top()!=')')
-            {
-                res+=st.top();
-                st.pop();
-            }
-            if(!st.empty())
-            st.pop();
-        }
-        
-        else
-        {
-            while(!st.empty() && prec(st.top())>prec(s[i]))
-            {
-                res+=st.top();
-                st.pop();
-            }
-            st.push(s[i]);
-        }
-    }
-    
-    while(!st.empty())
-    {
-        res+=st.top();
-        st.pop();
-    }
-    
-    reverse(res.begin(), res.end());
-    return res; 
+	if (C == '-' || C == '+')
+		return 1;
+	else if (C == '*' || C == '/')
+		return 2;
+	else if (C == '^')
+		return 3;
+	return 0;
 }
 
+string infixToPostfix(string infix)
+{
+	infix = '(' + infix + ')';
+	int l = infix.size();
+	stack<char> st;
+	string output;
+
+	for (int i = 0; i < l; i++) 
+	{
+		if (isalpha(infix[i]) || isdigit(infix[i]))
+			output += infix[i];
+
+		else if (infix[i] == '(')
+			st.push('(');
+
+		else if (infix[i] == ')') 
+		{
+			while (st.top() != '(') 
+			{
+				output += st.top();
+				st.pop();
+			}
+			st.pop();
+		}
+
+		else
+		{
+			if (isOperator(st.top()))
+			{
+				if(infix[i] == '^')
+				{
+					while (getPriority(infix[i]) <= getPriority(st.top()))
+					{
+						output += st.top();
+						st.pop();
+					}
+					
+				}
+				else
+				{
+					while (getPriority(infix[i]) < getPriority(st.top()))
+					{
+						output += st.top();
+						st.pop();
+					}
+					
+				}
+
+				st.push(infix[i]);
+			}
+		}
+	}
+	while(!st.empty())
+	{
+		output += st.top();
+		st.pop();
+	}
+	return output;
+}
+
+string infixToPrefix(string infix)
+{
+	int l = infix.size();
+
+	reverse(infix.begin(), infix.end());
+
+	for (int i = 0; i < l; i++) 
+	{
+
+		if (infix[i] == '(') 
+		{
+			infix[i] = ')';
+		}
+		else if (infix[i] == ')') 
+		{
+			infix[i] = '(';
+		}
+	}
+
+	string prefix = infixToPostfix(infix);
+	reverse(prefix.begin(), prefix.end());
+
+	return prefix;
+}
 
 int main()
 {
-    cout<<infixToPrefix("(a-b/c)*(a/k-l)")<<endl;
+	string s = ("x+y*z/w+u");
+	cout << infixToPrefix(s) << std::endl;
+	return 0;
 }

@@ -45,15 +45,13 @@ int magicIndex(int* arr, int start, int end)
 		return midIndex;
 
 	// Search on Left side
-	int left = magicIndex(arr, start, min(midValue,
-									midIndex - 1));
+	int left = magicIndex(arr, start, min(midValue, midIndex - 1));
 
 	// If Found on left side, return.
 	if (left >= 0)
 		return left;
 
-	return magicIndex(arr, max(midValue, midIndex + 1),
-												end);
+	return magicIndex(arr, max(midValue, midIndex + 1), end);
 }
 
 int main()

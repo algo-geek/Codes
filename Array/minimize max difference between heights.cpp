@@ -1,3 +1,6 @@
+// We need to either increase or decrease the height of every tower by k 
+// find min difference between max and min heights
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -33,4 +36,45 @@ int main()
 	int arr[n] = { 7, 4, 8, 8, 8, 9 };
 	int ans = getMinDiff(arr, n, k);
 	cout << ans;
+}
+
+// variation- minimize the difference between max and min
+// O(n)
+#include <bits/stdc++.h>
+using namespace std;
+
+int minimizeDiff(int* arr, int n, int k)
+{
+	int max = *(max_element(arr, arr + n));
+	int min = *(min_element(arr, arr + n));
+
+	if ((max - min) <= k) {
+		return (max - min);
+	}
+
+	int avg = (max + min) / 2;
+
+	for (int i = 0; i < n; i++) {
+		if (arr[i] > avg)
+			arr[i] -= k;
+		else
+			arr[i] += k;
+	}
+
+	max = *(max_element(arr, arr + n));
+	min = *(min_element(arr, arr + n));
+
+	return (max - min);
+}
+
+int main()
+{
+	int arr[] = { 3, 16, 12, 9, 20 };
+	int n = 5;
+	int k = 3;
+
+	cout << "Max height difference = "
+		<< minimizeDiff(arr, n, k) << endl;
+
+	return 0;
 }

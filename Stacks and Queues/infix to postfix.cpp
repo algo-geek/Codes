@@ -44,7 +44,7 @@ string infixToPostfix(string s)
         
         else
         {
-            while(!st.empty() && prec(st.top())>prec(s[i]))
+            while(!st.empty() && prec(st.top())>=prec(s[i]))
             {
                 res+=st.top();
                 st.pop();

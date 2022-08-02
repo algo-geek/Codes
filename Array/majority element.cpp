@@ -79,7 +79,7 @@ int main() {
     
 }
 
-// element appearing more than n/2 times
+// element appearing more than n/3 times
 // O(n) time and O(1) space
 #include <bits/stdc++.h>
 using namespace std;

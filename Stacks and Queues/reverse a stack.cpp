@@ -1,3 +1,4 @@
+// O(n^2)
 #include <iostream>
 #include <stack>
 using namespace std;

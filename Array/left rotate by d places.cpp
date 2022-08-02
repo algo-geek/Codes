@@ -112,7 +112,10 @@ void reverse(int arr[], int low, int high)
 		low++;
 		high--;
 	}
-}   
+}  
+
+// if (k>n) possible cases exist
+// use k=k%n
 
 void leftRotate(int arr[], int d, int n)
 {

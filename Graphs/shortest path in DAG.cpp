@@ -2,6 +2,10 @@
 #define INF INT_MAX 
 using namespace std; 
 
+// Graph is represented using adjacency list. Every node
+// of adjacency list contains vertex number of the vertex
+// to which edge connects. It also
+// contains weight of the edge
 class AdjListNode 
 { 
 	int v; 
@@ -12,6 +16,8 @@ public:
 	int getWeight() { return weight; } 
 }; 
 
+// Class to represent a graph using adjacency
+// list representation
 class Graph 
 { 
 	int V;
@@ -20,7 +26,7 @@ class Graph
 
 	void topologicalSortUtil(int v, bool visited[], stack<int> &Stack); 
 public: 
-	Graph(int V); 
+	Graph(int V);  // Constructor
  
 	void addEdge(int u, int v, int weight); 
  
@@ -47,9 +53,9 @@ void Graph::topologicalSortUtil(int v, bool visited[], stack<int> &Stack)
 	list<AdjListNode>::iterator i; 
 	for (i = adj[v].begin(); i != adj[v].end(); ++i) 
 	{ 
-		AdjListNode node = *i; 
-		if (!visited[node.getV()]) 
-			topologicalSortUtil(node.getV(), visited, Stack); 
+// 		AdjListNode node = *i; 
+		if (!visited[i->getV()]) 
+			topologicalSortUtil(i->getV(), visited, Stack); 
 	} 
 
 	Stack.push(v); 

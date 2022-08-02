@@ -52,7 +52,7 @@ int main() {
     
 }
 
-// time: O(1)
+// space: O(1)
 #include <iostream>
 #include <cmath>
 using namespace std;

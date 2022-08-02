@@ -36,7 +36,7 @@ class MinHeap{
     int lt = left(i); 
     int rt = right(i); 
     int smallest = i; 
-    if (lt < size && arr[lt] < arr[i]) 
+    if (lt < size && arr[lt] < arr[smallest]) 
         smallest = lt; 
     if (rt < size && arr[rt] < arr[smallest]) 
         smallest = rt; 

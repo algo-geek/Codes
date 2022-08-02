@@ -1,4 +1,4 @@
-// naive
+// naive // a[i]>a[j] such that i<j
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -57,7 +57,8 @@ int countInv(int arr[], int l, int r)
     if (l<r) {
        
         int m = (r + l) / 2;
- 
+        
+        // Inversion count will be sum of inversions in left-part, right-part and number of inversions in merging       
         res += countInv(arr, l, m);
         res += countInv(arr, m + 1, r);
         res += countAndMerge(arr, l, m , r);

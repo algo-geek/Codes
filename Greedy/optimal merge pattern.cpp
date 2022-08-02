@@ -1,3 +1,6 @@
+// connect n ropes with min cost
+// O(n log n) time and O(n) space
+
 #include <bits/stdc++.h>
 using namespace std;
 
