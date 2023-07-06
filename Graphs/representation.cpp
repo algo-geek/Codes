@@ -12,7 +12,7 @@ int main()
     
     int x, y;
     
-    for(int i=0;i<n;i++)
+    for(int i=0;i<m;i++)
     {
         cin>>x>>y;
         
