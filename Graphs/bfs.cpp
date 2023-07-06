@@ -50,7 +50,7 @@ int main()
     
 }
 
-//1st version
+//1st version // time: O(V+E)
 #include<bits/stdc++.h> 
 using namespace std; 
 
@@ -65,12 +65,14 @@ void BFS(vector<int> adj[], int V, int s)
 	visited[s] = true; 
 	q.push(s); 
 
+	// V component of time complexity 
 	while(q.empty()==false) 
 	{ 
 		int u = q.front(); 
 		q.pop();
 		cout << u << " "; 
-		 
+
+		// E component of time complexity
 		for(int v:adj[u]){
 		    if(visited[v]==false){
 		        visited[v]=true;
