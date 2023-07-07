@@ -1,59 +1,68 @@
+
+// using BFS. // time:O(V+2E)- 2E because sum of all adj vertices=sum of degree=2E
+// space: O(V)
 #include <bits/stdc++.h>
 using namespace std;
 
-bool isCycle(int src, vector<vector<int>> &a, vector<bool> &v, int parent)
+void addEdge(vector<int> adj[], int u, int v)
 {
-    v[src]=true;
-    
-    for(auto i:a[src])
-    {
-        if(i!=parent)
-        {
-            if(v[i])
-            return true;
-            
-            if(!v[i] && isCycle(i, a, v, src))
-            return true;
-        }
-    }
-    
-    return false;
+	adj[u].push_back(v);
+	adj[v].push_back(u);
+}
+
+bool isCyclicConnected(vector<int> adj[], int s, int V, vector<bool>& visited)
+{
+	vector<int> parent(V, -1);
+	queue<int> q;
+
+	visited[s] = true;
+	q.push(s);
+
+	while (!q.empty()) {
+		int u = q.front();
+		q.pop();
+
+		for (auto v : adj[u]) {
+			if (!visited[v]) {
+				visited[v] = true;
+				q.push(v);
+				parent[v] = u;
+			}
+			else if (parent[u] != v)
+				return true;
+		}
+	}
+	return false;
+}
+
+bool isCyclicDisconnected(vector<int> adj[], int V)
+{
+	vector<bool> visited(V, false);
+
+	for (int i = 0; i < V; i++)
+		if (!visited[i] && isCyclicConnected(adj, i, V, visited))
+			return true;
+	return false;
 }
 
 int main()
 {
-    int n, m;
-    cin>>n>>m;
-    
-    vector<vector<int>> a(n);
-    
-    int x, y;
-    
-    for(int i=0;i<m;i++)
-    {
-        cin>>x>>y;
-        
-        a[x].push_back(y);
-        a[y].push_back(x);
-    }
-    
-    bool c=false;
-    
-    vector<bool>v(n, false);
-    
-    for(int i=0;i<n;i++)
-    {
-        if(!v[i] && isCycle(i, a, v, -1))
-        {
-            c=true;
-        }
-    }
-    
-    if(c)
-    cout<<"cycle present"<<endl;
-    else
-    cout<<"not cycle"<<endl;
+	int V = 4;
+	vector<int> adj[V];
+	addEdge(adj, 0, 1);
+	addEdge(adj, 1, 2);
+	addEdge(adj, 2, 0);
+	addEdge(adj, 2, 3);
+
+	if (isCyclicDisconnected(adj, V))
+		cout << "Yes";
+	else
+		cout << "No";
+
+	return 0;
 }
+
+
 
 // by DFS // time:O(v+E)
 #include<bits/stdc++.h> 
