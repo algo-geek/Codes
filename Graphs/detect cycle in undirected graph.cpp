@@ -55,7 +55,7 @@ int main()
     cout<<"not cycle"<<endl;
 }
 
-// by DFS
+// by DFS // time:O(v+E)
 #include<bits/stdc++.h> 
 using namespace std; 
 
@@ -77,7 +77,8 @@ bool DFS(vector<int> adj[], int V){
     bool visited[V]; 
 	for(int i=0;i<V; i++) 
 		visited[i] = false;
-		
+
+	// for disconnected graphs
     for(int i=0;i<V;i++){
         if(visited[i]==false)
             if(DFSRec(adj,i,visited,-1)==true)
