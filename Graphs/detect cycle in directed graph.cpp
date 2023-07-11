@@ -1,5 +1,5 @@
 
-// DFS
+// DFS // time: O(v+E) // space: O(2V)
 #include<bits/stdc++.h> 
 using namespace std; 
 
@@ -14,6 +14,7 @@ bool DFSRec(vector<int> adj[], int s,bool visited[], bool recSt[])
         else if(recSt[u]==true)
             {return true;}
     }
+	// remove vertex from recSt Stack
     recSt[s]=false;
     return false;
 }
@@ -57,7 +58,7 @@ int main()
 	return 0; 
 } 
 
-// BFS(Kahn's Algo)
+// BFS(Kahn's Algo) // time: O(v+E) // space: O(2V)
 #include<bits/stdc++.h> 
 using namespace std; 
 
