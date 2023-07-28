@@ -1,4 +1,4 @@
-
+// check if subset with given sum exists or not// return 1 or 0
 // time: 2^n
 #include <iostream>
 #include <limits.h>
