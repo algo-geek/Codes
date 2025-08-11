@@ -1,4 +1,7 @@
 // O(n) time & O(1) space
+// Since values are from 1 to n, each number can map to an index from 0 to n-1. 
+// Specifically: Number x maps to index x-1
+// negation done to mark as visited
 
 #include <bits/stdc++.h>
 using namespace std;
