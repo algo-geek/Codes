@@ -1,4 +1,5 @@
 // print groups of min consecutive flips in a binary array
+// to Make Binary Array Elements Same
 #include <iostream>
 #include <cmath>
 using namespace std;
