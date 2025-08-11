@@ -1,6 +1,9 @@
 
 // prod[i] is equal to the product of all the elements of arr[] except arr[i] // without using division
 // time : O(n) // space: O(1)
+// For i > 0: v[i-1] contains the product of elements left of i, and 
+// p contains product of elements right of i → so v[i] = left * right
+// For i == 0: no elements to the left, so v[0] = p, which is the product of all elements right of index 0
 
 // 1
 #include <bits/stdc++.h>
