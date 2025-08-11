@@ -38,6 +38,17 @@ int main() {
 }
 
 //efficient
+// If max_normal is negative, that means all numbers are negative (or zero), 
+// so the maximum sum is the largest single element (or zero).
+
+// compute arr_sum = the sum of all elements in the original array.
+// negate all elements of the array (arr[i] = -arr[i] for all i).
+// run normalMaxSum on this negated array.
+// because maximum sum in negated = minimum sum in original
+// If the original array is [1, -2, 3, -2], the negated array becomes [-1, 2, -3, 2].
+// arr_sum + normalMaxSum(arr,n) = arr_sum − minSubarraySum
+​// This is equivalent to taking everything except that minimum subarray.
+	
 #include <iostream>
 #include <cmath>
 using namespace std;
