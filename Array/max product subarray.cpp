@@ -1,4 +1,7 @@
-
+// If the current element arr[i] is negative, 
+// swap maxVal and minVal because multiplying by a negative flips signs:
+// The previous max might become min.
+// The previous min might become max.
 #include <bits/stdc++.h>
 using namespace std;
 
