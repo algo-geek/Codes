@@ -1,3 +1,8 @@
+// m students given
+// Each student gets exactly one packet.
+//The difference between the maximum and minimum number of chocolates 
+//in the packets given to the students is minimized.
+// sort and sliding window
 #include <bits/stdc++.h>
 using namespace std;
 
