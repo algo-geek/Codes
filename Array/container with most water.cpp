@@ -31,24 +31,21 @@ int main()
 #include <bits/stdc++.h>
 using namespace std;
 
-int maxArea(int A[], int len)
-{
-  int l = 0;
-  int r = len -1;
-  int area = 0;
-  
-  while (l < r)
-  {
-    area = max(area, min(A[l], A[r]) * (r - l));
-            
-      if (A[l] < A[r])
-        l += 1;
-        
-      else
-        r -= 1;
-  }
-  return area;
-}
+int maxArea(vector<int>& height) {
+        int n=height.size();
+        int i=0, j=n-1, ans=0;
+        while(i<j){
+            if(height[i]<=height[j]){
+                ans=max(ans, (j-i)*height[i]);
+                i++;
+            }
+            else{
+                ans=max(ans, (j-i)*height[j]);
+                j--;
+            }
+        }
+        return ans;
+    }
 
 int main()
 {
