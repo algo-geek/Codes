@@ -1,5 +1,5 @@
 // push: O(1)- always push new item to s1
-// pop: if s2 is empty, put all form s1 to s2, return s2 top
+// pop: if s2 is empty, put all from s1 to s2, return s2 top
 
 #include <bits/stdc++.h>
 using namespace std;
