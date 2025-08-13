@@ -1,3 +1,9 @@
+// k stacks in a single array of size n
+// Using a single array (arr) of size n to hold elements of all k stacks.
+// top[]: stores indices of the top elements of each stack.
+// next[]: manages the free list and links stack elements.
+// freeTop: index of the next available free slot in arr.
+
 #include <bits/stdc++.h>
 using namespace std;
 
