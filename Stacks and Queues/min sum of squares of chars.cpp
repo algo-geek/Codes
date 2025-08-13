@@ -1,4 +1,10 @@
-// better
+// minimum possible value of a string after removing k characters, 
+// where the value of a string = sum of squares of frequencies of its characters.
+// Count character frequencies
+// Use a max-heap (priority queue) to always reduce frequency of most frequent character.
+// Remove k characters greedily: Always reduce the highest frequency &
+// Push updated frequency back.
+
 #include <bits/stdc++.h>
 using namespace std;
 
