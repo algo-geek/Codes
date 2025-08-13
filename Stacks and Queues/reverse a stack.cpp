@@ -31,6 +31,19 @@ void reverse(stack<int> &s)
     insertAtBottom(s, e);
 }
 
+// efficient- O(n) time & space
+void reverse(stack<int> &St) {
+        queue<int>u;
+        while(!St.empty()){
+            u.push(St.top());
+            St.pop();
+        }
+        while(!u.empty()){
+            St.push(u.front());
+            u.pop();
+        }
+}
+
 int main()
 {
     stack<int> s;
