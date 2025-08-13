@@ -1,3 +1,7 @@
+// infix:	  (A + B) * C	
+// postfix:   A B + C *	
+// prefix:    * + A B C
+
 #include <iostream>
 #include <stack>
 #include <math.h>
@@ -18,6 +22,21 @@ int prec(char c)
     return -1;
 }
 
+// Operands (letters):
+// ➜ Directly added to the result (res).
+
+// Left Parenthesis (:
+// ➜ Pushed to the stack.
+
+// Right Parenthesis ):
+// ➜ Pop from the stack to the result until ( is found -then discard (.
+
+// Operators (+, -, *, /, etc.):
+// ➜ While the top of the stack has higher or equal precedence, pop it to the result.
+// ➜ Then push the current operator.
+
+// End of expression:
+// ➜ Pop all remaining operators from the stack to the result.
 string infixToPostfix(string s)
 {
     stack<char> st;
