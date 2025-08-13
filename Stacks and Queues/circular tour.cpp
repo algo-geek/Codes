@@ -1,6 +1,34 @@
 // want to find the starting petrol pump index from which a truck can complete a circular tour.
 
+// naive - O(n^2)
+int printTourBruteForce(petrolPump p[], int n) {
+    for (int start = 0; start < n; start++) {
+        int petrol = 0;
+        int count = 0;
+        
+        // Try to complete the circle starting from 'start'
+        while (count < n) {
+            int i = (start + count) % n;  // Circular indexing
+            petrol += p[i].petrol - p[i].distance;
+            
+            if (petrol < 0) {
+                // Can't proceed from this start point
+                break;
+            }
+            count++;
+        }
+        
+        // Completed full circle
+        if (count == n) {
+            return start;
+        }
+    }
+    
+    return -1;  // No valid start found
+}
 
+
+// efficient 
 #include <bits/stdc++.h>
 using namespace std;
 
