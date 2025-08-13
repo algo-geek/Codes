@@ -33,10 +33,12 @@ int main()
 using namespace std;
 
 int getMaxArea(vector<int>& heights) {
-        // insert in stack until a next smaller element is found
-        // pop elements such that
-        // max(nxtSmaller*(next_small_idx-poppedElement+1), poppedElement*(nxtSmallerIdx-poppedElement))
-        // pop out elements from stack->poppedElement*(lastPoppedElementIdx-poppedElementIdx+1)
+// idea is to find prev smaller & next smaller
+// items in stack will always be in sorted order with the top being the max    
+// insert in stack until a next smaller element is found   
+// when we pop an item from stack, item just below it in stack is its prev smaller &
+// idx i for which we are currently processing is next smaller    
+
 
         stack<int>s;
         heights.push_back(0);
