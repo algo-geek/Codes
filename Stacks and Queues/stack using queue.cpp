@@ -1,4 +1,7 @@
-// pop: O(1)
+// pop: O(1)- take 2 queues
+// push new item to q2 then move all prev items to q2 
+// q1=q2 (using temp queue)
+// pop from q1
 #include <bits/stdc++.h>
 using namespace std;
 
