@@ -38,8 +38,6 @@ int getMaxArea(vector<int>& heights) {
 // insert in stack until a next smaller element is found   
 // when we pop an item from stack, item just below it in stack is its prev smaller &
 // idx i for which we are currently processing is next smaller    
-
-
         stack<int>s;
         heights.push_back(0);
         int n=heights.size();
@@ -55,7 +53,7 @@ int getMaxArea(vector<int>& heights) {
         s.push(i);
         }
         return ans;
-    }
+}
 
 int main() 
 { 
