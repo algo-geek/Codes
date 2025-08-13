@@ -1,4 +1,7 @@
-
+// use a temp atck to be returned with sorted items
+// Pop an element from the input stack (tmp).
+// While the temporary stack’s top is greater than tmp, move elements back to the input stack.
+// Push tmp into its correct position in tmpStack (which remains sorted).
 
 #include <bits/stdc++.h>
 using namespace std;
