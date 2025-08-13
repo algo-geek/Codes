@@ -1,3 +1,7 @@
+// Reverse the infix string.
+// Swap every ( with ) and vice versa.
+// Convert the reversed infix to postfix.
+// Reverse the postfix result → that gives the prefix.
 #include <bits/stdc++.h>
 using namespace std;
 
