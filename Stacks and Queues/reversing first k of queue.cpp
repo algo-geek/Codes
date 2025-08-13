@@ -1,4 +1,6 @@
-
+// push 1st k items to stack for reversing
+// push from stack to queue
+// put n-k items to back of queue
 #include <bits/stdc++.h>
 using namespace std;
 
