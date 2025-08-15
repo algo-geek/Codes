@@ -1,7 +1,6 @@
 // check if string 2 is anagram (chars order diff) of string 1
 
 // Compares pat and a substring of txt starting at index i to see if they are anagrams.
-Uses a counting array of size 256 to compare character frequencies.
 // count[pat[j]]++ :  increments count for each character in pat
 // count[txt[i+j]]-- :  decrements for the corresponding character in the substring of txt
 // If all values in count are zero at the end, the substring is an anagram.
