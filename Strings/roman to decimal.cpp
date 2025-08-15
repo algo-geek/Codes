@@ -1,4 +1,12 @@
+// Loop through each character in the string.
+// Get the value of the current Roman symbol using value(str[i]).
+// If the next symbol is larger, it's a subtractive pair (like IV or IX):
+// So, subtract the current from the next and add the result.
+// Skip the next symbol (increment i).
+// Otherwise, just add the value of the current symbol.
+// Continue until the end of the string.
 
+// efficient
 #include <bits/stdc++.h>
 using namespace std;
 
