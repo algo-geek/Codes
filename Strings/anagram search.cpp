@@ -1,3 +1,10 @@
+// check if string 2 is anagram (chars order diff) of string 1
+
+// Compares pat and a substring of txt starting at index i to see if they are anagrams.
+Uses a counting array of size 256 to compare character frequencies.
+// count[pat[j]]++ :  increments count for each character in pat
+// count[txt[i+j]]-- :  decrements for the corresponding character in the substring of txt
+// If all values in count are zero at the end, the substring is an anagram.
 // naive // O((n-m+1)*m)
 #include <bits/stdc++.h> 
 using namespace std; 
@@ -44,8 +51,13 @@ int main()
     return 0; 
 } 
 
-// efficient // O(n* char)
-// sliding window
+// efficient // O(n* char) // sliding window
+
+// take 2 freq count arrays for both strings
+// Count characters of pat in CP[] and the first window of txt in CT[].
+// Slide the window one character at a time:
+// After each slide, compare CT and CP using areSame().
+// If they match, an anagram is found.
 #include <bits/stdc++.h> 
 using namespace std; 
  
