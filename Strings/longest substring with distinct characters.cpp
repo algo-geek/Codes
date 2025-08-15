@@ -67,7 +67,11 @@ int main()
 	return 0; 
 } 
 
-// efficient
+// efficient- (Sliding Window + Index Tracking)
+// prev stores the last seen index of each character in the string.
+// When we hit a duplicate character (already seen within the current window), 
+// we use prev to skip past the last occurrence and keep the substring valid
+// This keeps our sliding window (i to j) always full of unique characters
 #include <bits/stdc++.h> 
 using namespace std; 
 
