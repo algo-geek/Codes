@@ -1,5 +1,12 @@
 // min no of bracket reversals to make expression balanced
-// naive // time & space: O(n)
+// naive- USING STACK // time & space: O(n)
+//1.  If you see {, just push it onto the stack.
+//2.  If you see }: If the stack has a {, pop it (they form a valid pair).
+// else the stack is empty or doesn't have {, reverse the } into { and push. 
+// This counts as one reversal, so increment ans.
+//3.  If the stack size is odd, it's impossible to balance → return -1.
+// Else, add stack size / 2 to ans:
+// Every two unmatched brackets (like {{ or }}) can be balanced with 1 reversal.
 #include <iostream>
 using namespace std;
 #include <stack>
