@@ -1,3 +1,23 @@
+// revised 
+TreeNode* build(vector<int>& preorder, map<int,int> &m, int strt, int end, int&curridx){
+        if(strt>end)return NULL;
+        int val=preorder[curridx++];
+        TreeNode* root=new TreeNode(val);
+        root->left=build(preorder, m, strt, m[val]-1, curridx);
+        root->right=build(preorder, m, m[val]+1, end, curridx);
+        return root;
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        map<int,int>m;
+        int s=preorder.size();
+        for(int i=0;i<s;i++){
+            m[inorder[i]]=i;
+        }
+        int curr=0;
+        return build(preorder, m, 0, s-1, curr);
+}
+
+// old
 #include <bits/stdc++.h>
 using namespace std;
 
