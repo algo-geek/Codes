@@ -1,3 +1,5 @@
+// if diamete passing through root node: lh+rh+1
+// else, max(ld, rd)
 #include <bits/stdc++.h>
 using namespace std;
 
