@@ -1,3 +1,8 @@
+// map to store indices of item in inorder for O(1) lookup.
+// Start from the beginning of the preorder array.
+// The current element becomes the root.
+// Recur for the left subtree first, then the right.
+// Use the inorder index map to divide the tree into left and right subtrees.
 // revised 
 TreeNode* build(vector<int>& preorder, map<int,int> &m, int strt, int end, int&curridx){
         if(strt>end)return NULL;
