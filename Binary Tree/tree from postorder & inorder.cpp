@@ -1,3 +1,32 @@
+// reverse postorder: root-right-left order
+// map to store indices of item in inorder for O(1) lookup.
+// Start from the beginning of the reversed postorder array.
+// The current element becomes the root.
+// Recur for the right subtree first, then the left, because of the reversed postorder.
+// Use the inorder index map to divide the tree into left and right subtrees.
+
+// revised
+TreeNode* build(vector<int>& postorder, map<int,int> &m, int strt, int end, int&curridx){
+        if(strt>end)return NULL;      
+        TreeNode* root=new TreeNode(postorder[curridx]);
+        int val=postorder[curridx++];
+        root->right=build(postorder, m, m[val]+1, end, curridx);
+        root->left=build(postorder, m, strt, m[val]-1, curridx);
+        
+        return root;
+    }
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        map<int,int>m;
+        reverse(postorder.begin(), postorder.end());
+        int s=postorder.size();
+        for(int i=0;i<s;i++){
+            m[inorder[i]]=i;
+        }
+        int curr=0;
+        return build(postorder, m, 0, s-1, curr);
+}
+
+// old
 #include <bits/stdc++.h>
 using namespace std;
 
