@@ -1,3 +1,11 @@
+// each node's value becomes the sum of all values in its subtree, including itself.
+
+// Postorder traversal (left → right → root) – 
+// ensures subtrees are updated before the current node.
+// Call sumReplace on left & right subtree.
+// If the left child exists, add its updated value to the current node.
+// If the right child exists, add its updated value to the current node.
+
 #include <bits/stdc++.h>
 using namespace std;
 
