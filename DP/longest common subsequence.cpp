@@ -35,12 +35,7 @@ int main()
 	cout<<lcs(s1,s2,n,m);
 }
 
-//tabular
-#include <iostream>
-#include <string.h>
-using namespace std;
-
-
+//tabular // 2D dp
 int lcs(string s1, string s2)
 {
     int m = s1.length(), n = s2.length();
@@ -68,15 +63,22 @@ int lcs(string s1, string s2)
     
 }
 
-int main() {
-	
-	
-	string s1="AXYZ", s2="BAZ";
-	
-	
-	cout<<lcs(s1,s2);
-	
-
+// 1D dp
+int longestCommonSubsequence(string text1, string text2) {
+        int n=text1.size(), m=text2.size();
+        vector<int>dp(m+1,0); // curr
+        vector<int>dp1(m+1,0); // prev
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=m;j++){
+                if(text1[i-1]==text2[j-1]){
+                    dp[j]=dp1[j-1]+1;
+                }else{
+                    dp[j]=max(dp1[j], dp[j-1]);
+                }
+            }
+            dp1=dp; // update prev with curr array
+        }
+        return dp1[m]; 
 }
 
 // printing LCS
