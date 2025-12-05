@@ -1,12 +1,21 @@
 // binary search solution
-#include<bits/stdc++.h>
-using namespace std;
+// 1. calculate:
+// global min = min of 1st column elements in all rows
+// global max = max of last column elements in all rows
+// 2. total ele = n*m
+// medPos = (n*m+1)/2 as it can be used for even and odd total ele
+// 3. binary search ove range [global min, global max]
+// at each step, count how many elements are ≤ mid using upper_bound on each row.
+
+// time: O(n × log(m) × log(maxVal - minVal))
+// upper_bound: log m (sorted rows)
+// for all rows: n log m
+// binary search loop: O(maxVal-minVal)
+
 
 const int MAX = 100;
-
 int matMed(int mat[][MAX], int r ,int c)
 {
-    // min & max will be any element of 1st & last column respectively
 	int min = mat[0][0], max = mat[0][c-1];
 	for (int i=1; i<r; i++)
 	{
@@ -16,7 +25,6 @@ int matMed(int mat[][MAX], int r ,int c)
 		if (mat[i][c-1] > max)
 			max = mat[i][c-1];
 	}
-
 	int medPos = (r * c + 1) / 2;
 	while (min < max)
 	{
