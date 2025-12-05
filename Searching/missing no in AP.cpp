@@ -61,7 +61,8 @@ int findMissingUtil(int arr[], int low, int high, int diff)
 		// the missing element will exist in left half
 			high = mid - 1;
 	}
-
+	// after breaking out of binary search loop the missing element
+  	// will exist between high and low
 	return arr[high] + diff;
 }
 
