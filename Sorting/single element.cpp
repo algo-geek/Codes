@@ -1,12 +1,13 @@
-// naive
-// XOR // O(n)
+// every ele other than one occurs twice 
+
+// if mid is even, then it's duplicate should be in next index.
+// or if mid is odd, then it's duplicate  should be in previous index.
+// check these two conditions, 
+// if any of the conditions is satisfied,
+// then pattern is not missed, 
+// so check in next half of the array. i.e, left = mid + 1
 
 // efficient // O(log n)
-#include<bits/stdc++.h>
-
-using namespace std;
-class Solution {
-    public:
         int findSingleElement(vector < int > & nums) 
         {
             int n=nums.size();
@@ -33,7 +34,6 @@ class Solution {
 
             return nums[low];
         }
-};
 
 int main() {
     Solution obj;
