@@ -1,15 +1,11 @@
 // min swaps to sort array
 // naive // O(n^2)
-#include <bits/stdc++.h>
-using namespace std;
-
 void swap(vector<int> &arr, int i, int j)
 {
 	int temp = arr[i];
 	arr[i] = arr[j];
 	arr[j] = temp;
 }
-
 int indexOf(vector<int> &arr, int ele)
 {
 	for(int i = 0; i < arr.size(); i++)
@@ -21,7 +17,6 @@ int indexOf(vector<int> &arr, int ele)
 	}
 	return -1;
 }
-
 int minSwaps(vector<int> arr, int N)
 {
 	int ans = 0;
@@ -40,23 +35,15 @@ int minSwaps(vector<int> arr, int N)
 	return ans;
 }
 
-int main()
-{
-
-	vector<int> a = {101, 758, 315, 730,
-				472, 619, 460, 479};
-	
-	int n = a.size();
-	
-	cout << minSwaps(a, n);
-}
-
-
 //  efficient // O(n log n)
-#include<bits/stdc++.h>
-using namespace std;
-
-
+// Use cycle detection. 
+// If an element is not in its correct position, then it is part of a cycle 
+// with one or more other elements that also need to be moved. 
+// For example, if element A is in the position of element B, 
+// and element B is in the position of element C, until it comes back to A, it forms a cycle.
+// And to sort the elements in the cycle, we need cycleSize - 1 swaps, 
+// as each swap places one element in its correct position, 
+// and the last element will automatically be in its correct place.
 int minSwaps(int arr[], int n)
 {
 	pair<int, int> arrPos[n];
@@ -70,7 +57,6 @@ int minSwaps(int arr[], int n)
 	vector<bool> vis(n, false);
 
 	int ans = 0;
-
 	for (int i = 0; i < n; i++)
 	{
 		// already swapped and corrected or
@@ -98,12 +84,4 @@ int minSwaps(int arr[], int n)
 	}
 
 	return ans;
-}
-
-int main()
-{
-	int arr[] = {1, 5, 4, 3, 2};
-	int n = (sizeof(arr) / sizeof(int));
-	cout << minSwaps(arr, n);
-	return 0;
 }
