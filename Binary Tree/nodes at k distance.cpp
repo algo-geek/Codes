@@ -1,23 +1,12 @@
-#include <bits/stdc++.h>
-using namespace std;
+// using recursion and find the target node. 
+// Find all nodes in left and right subtree of target node at dis k. 
+// for all nodes in path of target node, find all nodes in opposite subtree 
+// that are at the distance of  (k - distance of target node).
 
-struct Node{
-    int data;
-    struct Node* left; 
-    struct Node* right;
-    
-    Node(int val) //constructor for node
-    {
-        data=val;
-        left=NULL;
-        right=NULL;
-    }
-    
-};
+// O(nlogn) Time and O(h) Space
 
-
-// case 1
-
+// Find nodes at distance k from
+// target node in subtree.
 void subtree(Node* root, int k)
 {
     if(root==NULL || k<0)
@@ -33,8 +22,8 @@ void subtree(Node* root, int k)
     subtree(root->right, k-1);
 }
 
-//case 2
-
+// Function which returns the distance of a node to
+// target node. Returns -1 if target is not found.
 int printNodesAtK(Node* root, Node* t, int k)
 {
     if(root==NULL)
@@ -47,24 +36,28 @@ int printNodesAtK(Node* root, Node* t, int k)
     }
     
     int dl=printNodesAtK(root->left, t, k);
-    
+    // If target node is found in left
+    // subtree, find all nodes at distance
+    // k-left in right subtree.
     if(dl!=-1)
     {
-        if(dl+1==k)
+        if(k-dl==0)
         cout<<root->data<<" ";
         else
-        subtree(root->right, k-dl-2);
+        subtree(root->right, k-dl-1);
         
         return dl+1;
     }
-    
+    // If target node is found in right
+    // subtree, find all nodes at distance
+    // k-right in left subtree.
     int dr=printNodesAtK(root->right, t, k);
     if(dr!=-1)
     {
         if(dr+1==k)
         cout<<root->data<<" ";
         else
-        subtree(root->left, k-dr-2);
+        subtree(root->left, k-dr-1);
         
         return dr+1;
     }
