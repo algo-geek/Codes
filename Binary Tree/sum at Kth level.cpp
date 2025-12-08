@@ -1,20 +1,7 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-struct Node{
-    int data;
-    struct Node* left; 
-    struct Node* right;
-    
-    Node(int val) //constructor for node
-    {
-        data=val;
-        left=NULL;
-        right=NULL;
-    }
-    
-};
-
+// level order traversal
+// take a flag
+// if level = k, mark flag true
+// break from loop
 int sumAtK(Node* root, int k)
 {
     if(root==NULL)
@@ -25,31 +12,32 @@ int sumAtK(Node* root, int k)
     q.push(root);
     q.push(NULL);
     int l=0, s=0;
+    int flag = 0;
     
     while(!q.empty())
     {
-        Node* node=q.front();
-        q.pop();
-        
-        if(node!=NULL)
-        {
+        int size = que.size();
+
+        while (size--) {
+            Node* node=q.front();
+            q.pop();
+            
             if(l==k)
             {
+                flag=1;
                 s+=node->data;
             }
-
-            if(node->left)
-            q.push(node->left);
-            if(node->right)
-            q.push(node->right);
-        }
-        else if(!q.empty())
-        {
-            q.push(NULL);
+            else
+            {
+                if(node->left)
+                q.push(node->left);
+                if(node->right)
+                q.push(node->right);
+            }
+            
             l++;
         }
     }
-    
     return s;
 }
 
