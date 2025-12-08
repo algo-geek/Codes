@@ -1,20 +1,4 @@
-
-#include <bits/stdc++.h>
-using namespace std;
-
-struct Node{
-    int data;
-    struct Node* left; 
-    struct Node* right;
-    
-    Node(int val) //constructor for node
-    {
-        data=val;
-        left=NULL;
-        right=NULL;
-    }
-    
-};
+// O(n) Time and O(h) Space
 
 Node* lca(Node* root, int n1, int n2)
 {
@@ -40,8 +24,7 @@ Node* lca(Node* root, int n1, int n2)
     {
         return lca(root->left, n1, n2);
     }
-    return lca(root->right, n1, n2);
-   
+    return lca(root->right, n1, n2);   
 }
 
 int findDist(Node* root, int k, int dist)
