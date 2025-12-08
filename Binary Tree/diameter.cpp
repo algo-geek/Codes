@@ -1,22 +1,7 @@
 // if diamete passing through root node: lh+rh+1
 // else, max(ld, rd)
-#include <bits/stdc++.h>
-using namespace std;
 
-struct Node{
-    int data;
-    struct Node* left; 
-    struct Node* right;
-    
-    Node(int val) 
-    {
-        data=val;
-        left=NULL;
-        right=NULL;
-    }
-    
-};
-
+// naive // O(n^2) Time and O(h) Space
 int height(Node* root)
 {
     if(root==NULL)
@@ -43,7 +28,9 @@ int diameter(Node* root)
     return max(currD, max(ld, rd));
 }
 
-// efficient
+// efficient // O(n) Time and O(h) Space
+// For each node, the longest path passing through it 
+// is the sum of the heights of its left and right subtrees. 
 int res=0;
 int height2(Node *root){
     if(root==NULL)
@@ -55,20 +42,3 @@ int height2(Node *root){
         return 1+max(lh,rh);
 }
 
-int main()
-{
-    struct Node* root=new Node(1); 
-    root->left=new Node(2);
-    root->right=new Node(3);
-    
-    root->left->left=new Node(4);
-    root->left->right=new Node(5);
-    
-    root->right->left=new Node(6);
-    root->right->right=new Node(7);
-    
-    cout<<diameter(root)<<endl;
-    cout<<"Height: "<<height2(root)<<endl;
-	cout<<"Diameter: "<<res;
-
-}
