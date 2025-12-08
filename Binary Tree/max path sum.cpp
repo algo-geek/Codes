@@ -1,57 +1,23 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-struct Node{
-    int data;
-    struct Node* left; 
-    struct Node* right;
-    
-    Node(int val) //constructor for node
-    {
-        data=val;
-        left=NULL;
-        right=NULL;
-    }
-    
-};
-
+// O(n) Time and O(h) Recursive Space
+// use postorder traversal. 
+// At each node, calculate left and right path sums, 
+// and update a global maximum with (left + node + right). 
+// Return the node’s value plus the larger side upward.
 int maxpathsum(Node* root, int &ans)
 {
     if(root==NULL)
     return 0;
     
-    int l=maxpathsum(root->left, ans);
-    int r=maxpathsum(root->right, ans);
+    int l=max(0,maxpathsum(root->left, ans));
+    int r=max(0,maxpathsum(root->right, ans));
     
-    int nodemax=max(max(root->data, root->data+l+r), max(root->data+l, root->data+r)); 
-    
-    ans=max(ans, nodemax);
-    
-    int singlepathsum=max(root->data, max(root->data+l, root->data+r));
-    return singlepathsum;
+    ans=max(ans, l + r + root->data);
+    return root->data + max(l, r);
 }
 
 int maxsum(Node* root)
 {
     int ans=INT_MIN;
-    
     maxpathsum(root, ans);
-    
     return ans;
-}
-
-int main()
-{
-    struct Node* root=new Node(1); //root pointer points to a new Node
-    root->left=new Node(-12);
-    root->right=new Node(3);
-    
-    root->left->left=new Node(4);
-    
-    root->right->left=new Node(5);
-    root->right->right=new Node(-6);
-
-    cout<<maxsum(root)<<endl;
-
- 
 }
