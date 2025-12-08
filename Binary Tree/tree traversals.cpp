@@ -1,6 +1,3 @@
-#include <bits/stdc++.h>
-using namespace std;
-
 struct Node{
     int data;
     struct Node* left; 
@@ -19,74 +16,31 @@ struct Node{
 void preorder(struct Node* root)
 {
     if(root==NULL)
-    {
-        // cout<<"0"<<" ";
-        return;
-    }
+    return;
     
     cout<<root->data<<" ";
     preorder(root->left);
-    preorder(root->right);
-    
-    
+    preorder(root->right);   
 }
-
-// iterative preorder 1
-void preorder2(struct Node* root)
-{
-    if(root==NULL)
-    {
-        return;
-    }  
-    stack<Node *>s;
-    s.push(root);
-
-    while(!s.empty())
-    {
-        Node *curr=s.top();
-        cout<<curr->data<<" ";
-        s.pop();
-
-        if(curr->right)
-        s.push(curr->right);
-
-        if(curr->left)
-        s.push(curr->left);
-
-    }  
-}
-
-// iterative preorder 2
-void preorder2(struct Node* root)
-{
-    if(root==NULL)
-    {
-        return;
-    }  
-    stack<Node *>s;
-    Node *curr=root;
-
-    while(curr!=NULL || !s.empty())
-    {
-        while(curr!=NULL)
-        {
-            cout<<curr->data<<" ";
-
-            if(curr->right)
-            s.push(curr->right);
-
-            curr=curr->left;
+// iterative preorder
+vector<int> preorderTraversal(TreeNode* root) {
+    stack<TreeNode*>s;
+    vector<int>v;
+    while(root || !s.empty()){
+        if(root){       
+            s.push(root);
+            v.push_back(root->val);
+            root=root->left;
         }
-        
-        
-       if(!s.empty())
-       {
-            curr=s.top();
+        else{
+            root=s.top();
             s.pop();
-       }
-
-    } 
+            root=root->right;
+        }
+    }
+    return v;
 }
+
 
 // recursive inorder
 void inorder(struct Node* root)
@@ -100,29 +54,22 @@ void inorder(struct Node* root)
 }
 
 //iterative inorder
-void inorder2(struct Node* root)
-{
-    if(root==NULL)
-    {
-        return;
-    }  
-    stack<Node *>s;
-    Node *curr=root;
-
-    while(curr!=NULL || !s.empty())
-    {
-        while(curr!=NULL)
-        {
-            s.push(curr);
-            curr=curr->left;
+vector<int> inorderTraversal(TreeNode* root) {
+    stack<TreeNode*>s;
+    vector<int>v;
+     while(root || !s.empty()){
+        if(root){
+            s.push(root);
+            root=root->left;
         }
-        
-        curr=s.top();
-        s.pop();
-        cout<<curr->data<<" ";
-        curr=curr->right;
-       
-    } 
+        else{
+            root=s.top();
+            s.pop();
+            v.push_back(root->val);
+            root=root->right;
+        }
+    }
+    return v;
 }
 
 // recursive postorder
@@ -136,25 +83,22 @@ void postorder(struct Node* root)
     cout<<root->data<<" ";
 }
 
-int main()
-{
-    struct Node* root=new Node(1); //root pointer points to a new Node
-    root->left=new Node(2);
-    root->right=new Node(3);
-    
-    root->left->left=new Node(4);
-    root->left->right=new Node(5);
-    
-    root->right->left=new Node(6);
-    root->right->right=new Node(7);
-    
-    preorder(root);
-    cout<<endl;
-    preorder2(root);
-    cout<<endl;
-    inorder(root);
-    cout<<endl;
-    inorder2(root);
-    cout<<endl;
-    postorder(root);
+// iterative postorder
+vector<int> postorderTraversal(TreeNode* root) {
+    stack<TreeNode*>s;
+    vector<int>v;
+    while(root || !s.empty()){
+        if(root){       
+            s.push(root);
+            v.push_back(root->val);
+            root=root->right;
+        }
+        else{
+            root=s.top();
+            s.pop();
+            root=root->left;
+        }
+    }
+    reverse(v.begin(), v.end());
+    return v;
 }
