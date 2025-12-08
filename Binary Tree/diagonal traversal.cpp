@@ -1,20 +1,7 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-struct Node{
-    int data;
-    struct Node* left; 
-    struct Node* right;
-    
-    Node(int val) 
-    {
-        data=val;
-        left=NULL;
-        right=NULL;
-    }
-    
-};
-
+// level order traversal
+// if(curr.left != null), add it to the queue 
+// and move curr pointer to right of curr.
+// if curr = null, then remove a node from queue.
 vector <vector <int>> result;
 void diagonalPrint(Node* root)
 {
