@@ -1,82 +1,57 @@
-#include <bits/stdc++.h>
-using namespace std;
-
-int n, m;
-bool bipart;
-vector<vector<int>> a(n);
-vector<bool>v;
-vector<int>color;
-
-void Color(int idx, int curr)// curr is the color i wish to give
-{
-    if(color[idx]!=-1 && color[idx]!=curr)// if it is colored & it is not colored by curr
-    {
-        bipart=false;
-        return;
+// O(v+e) time & O(v) space
+// dfs
+bool dfs(int root, vector<vector<int>>& graph, vector<int>& col, int color){
+    col[root]=color;
+    for(auto i:graph[root]){
+        if( (col[i]==-1 && !dfs(i,graph,col,1-color)) || (col[i]==color) )return false;
     }
-    color[idx]=curr;
-    
-    if(v[idx])
-    {
-        return;
-    }
-    v[idx]=true;
-    
-    for(auto i:a[idx])
-    {
-        Color(i, curr xor 1);// if color is 0, neighbour will be 1, else neighbour will be 0
-    }
+    return true;
 }
-
-int main()
-{
-    cin>>n>>m;
-    bipart=true;
-    
-    a=vector<vector<int>>(n);
-    v=vector<bool>(n, false);
-    color=vector<int>(n, -1);
-    
-    int x, y;
-    
-    for(int i=0;i<m;i++)
-    {
-        cin>>x>>y;
-        
-        a[x].push_back(y);
-        a[y].push_back(x);
-
-    }
-    
+bool isBipartite(vector<vector<int>>& graph) {
+    int n=graph.size();
+    vector<int>col(n,-1);
     for(int i=0;i<n;i++)
     {
-        if(!v[i])
-        {
-            Color(i, 0);
+        if(col[i]==-1){
+            if(!dfs(i, graph, col, 0))return false;
         }
     }
-    
-    if(bipart)
-    cout<<"graph is bipartite"<<endl;
-    else
-    cout<<"graph is not bipartite"<<endl;
+    return true;
 }
 
-//input
-// 3 3
-// 0 1
-// 1 2
-// 2 0
+// bfs
+bool isBipartite(int V, vector<vector<int>> &edges) {
+    vector<int> color(V, -1);
+    vector<vector<int>> adj = constructadj(V,edges);
+    queue<int> q;
+    // Iterate through all vertices to handle disconnected graphs
+    for(int i = 0; i < V; i++) {
+        // If the vertex is uncolored, start BFS from it
+        if(color[i] == -1) {
+            // Assign first color (0) to the starting vertex
+            color[i] = 0;
+            q.push(i);
 
-//output
-// not bipartite
+            while(!q.empty()) {
+                int u = q.front();
+                q.pop();
+                // Traverse all adjacent vertices
+                for(auto &v : adj[u]) {
+                    // If the adjacent vertex is uncolored,
+                    // assign alternate color
+                    if(color[v] == -1) {
+                        color[v] = 1 - color[u];
+                        q.push(v);
+                    }
+                    // If the adjacent vertex has the same color,
+                    // graph is not bipartite
+                    else if(color[v] == color[u]) {
+                        return false;
+                    }
+                }
+            }
+        }
+    }    
+    return true;
+}
 
-//input
-// 4 4
-// 0 1
-// 1 2
-// 2 3
-// 3 0
-
-//output
-// bipartite
