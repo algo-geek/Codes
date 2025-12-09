@@ -1,9 +1,5 @@
-// dp
-#include <iostream>
-#include <string.h>
-using namespace std;
-
-
+// dp // O(n^2)
+// lis[i] stores the length of the longest increasing subsequence that ends at index i
 int LIS( int arr[], int n )  
 {  
     vector<int>lis(n,1); 
@@ -20,24 +16,16 @@ int LIS( int arr[], int n )
     return res;
 }  
 
-int main() {
-	
-	
-int arr[] ={3, 4, 2, 8, 10, 5, 1};
-int n = 7;
 
-cout<<LIS(arr, n);
-	
+// binary search // n long n
+// The idea is to traverse the given sequence and maintain a separate list of sorted subsequence so far. 
+//For every new element, find its position in the sorted subsequence using Binary Search.
 
-}
-
-// binary search
-#include <iostream>
-#include <string.h>
-using namespace std;
-
-
-        int ceilIdx(int tail[], int l, int r, int key) 
+// If the number is greater than the last element of the last bucket (i.e., the largest element in the current subsequence), we append the number to the end of the list. This indicates that we have found a longer subsequence.
+// Otherwise, we perform a binary search on the list of buckets to find the smallest element that is greater than or equal to the current number. This step helps us maintain the property of increasing elements in the buckets.
+// Once we find the position to update, we replace that element with the current number. This keeps the buckets sorted and ensures that we have the potential for a longer subsequence in the future.
+        
+	int ceilIdx(int tail[], int l, int r, int key) 
         { 
             while (r > l) {         
                 int m = l + (r - l) / 2; 
