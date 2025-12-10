@@ -1,8 +1,4 @@
-// naive
-#include <bits/stdc++.h> 
-using namespace std; 
-
-
+// naive // o(n^2)
 int nonRep(string &str) 
 {
     for(int i=0;i<str.length();i++){
@@ -17,45 +13,15 @@ int nonRep(string &str)
     }
     return -1;
 }
- 
-int main() 
-{ 
-    string str = "geeksforgeeks";
-    cout<<"Index of leftmost non-repeating element:"<<endl;
-    cout<<nonRep(str)<<endl;  
-    
-    return 0; 
+ return 0; 
 } 
 
-// better
-#include <bits/stdc++.h> 
-using namespace std; 
-
-const int CHAR=256;
-int nonRep(string &str) 
-{
-    int count[CHAR]={0};
-    for(int i=0;i<str.length();i++){
-        count[str[i]]++;
-    }
-    for(int i=0;i<str.length();i++){
-        if(count[str[i]]==1)return i;
-    }
-    return -1;
-}
- 
-int main() 
-{ 
-    string str = "geeksforgeeks";
-    cout<<"Index of leftmost non-repeating element:"<<endl;
-    cout<<nonRep(str)<<endl;  
-    
-    return 0; 
-} 
-
-// efficient
-#include <bits/stdc++.h> 
-using namespace std; 
+// O(n) and O(256)
+// Maintain a visited array of size 256 initialized to -1
+// If a char is seen for first time, its index is stored in vis array. 
+// If the char is found again then its array value is set to -2 (repeating). 
+// Now, traverse vis array and check if value in the array is not equal to -1 or -2 
+// (means, this character is not repeating)
 
 const int CHAR=256;
 int nonRep(string &str) 
