@@ -23,30 +23,28 @@ int nonRep(string &str)
 // Now, traverse vis array and check if value in the array is not equal to -1 or -2 
 // (means, this character is not repeating)
 
-const int CHAR=256;
-int nonRep(string &str) 
-{
-    int fI[CHAR];
-    fill(fI,fI+CHAR,-1);
-    
-    for(int i=0;i<str.length();i++){
-        if(fI[str[i]]==-1)
-        fI[str[i]]=i;
-        else
-        fI[str[i]]=-2;
+const int MAX_CHAR = 26;  
+
+char nonRep(const string& s) {
+    vector<int> vis(MAX_CHAR, -1);
+    for (int i = 0; i < s.length(); ++i) {
+        int index = s[i] - 'a';
+        if (vis[index] == -1) {
+            // Store the index when character is first seen
+            vis[index] = i;  
+        } else {
+            // Mark character as repeated
+            vis[index] = -2; 
+        }
     }
-    int res=INT_MAX;
-    for(int i=0;i<CHAR;i++){
-        if(fI[i]>=0)res=min(res,fI[i]);
+
+    int idx = -1;
+
+    // Find the smallest index of the non-repeating characters
+    for (int i = 0; i < MAX_CHAR; ++i) {
+        if (vis[i] >= 0 && (idx == -1 || vis[i] < vis[idx])) {
+            idx = i;
+        }
     }
-    return (res==INT_MAX)?-1:res;
+    return (idx == -1) ? '$' : s[vis[idx]];
 }
- 
-int main() 
-{ 
-    string str = "geeksforgeeks";
-    cout<<"Index of leftmost non-repeating element:"<<endl;
-    cout<<nonRep(str)<<endl;  
-    
-    return 0; 
-} 
