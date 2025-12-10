@@ -1,9 +1,5 @@
 // index of lefmost first repeating character
-// naive
-#include <bits/stdc++.h> 
-using namespace std; 
-
-
+// naive // O(n^2)
 int leftMost(string &str) 
 {
     for(int i=0;i<str.length();i++){
@@ -13,97 +9,31 @@ int leftMost(string &str)
     }
     return -1;
 }
- 
-int main() 
-{ 
-    string str = "geeksforgeeks";
-    cout<<"Index of leftmost repeating character:"<<endl;
-    cout<<leftMost(str)<<endl;  
-    
-    return 0; 
-} 
 
-// better
-#include <bits/stdc++.h> 
-using namespace std; 
 
-const int CHAR=256;
-int leftMost(string &str) 
+// O(n) and O(256)
+// take a vis array initialized to -1
+// if char not seen before, update vis to store idx 
+// else, calc min idx
+int firstRepeating(string& str)
 {
-    int count[CHAR]={0};
-    for(int i=0;i<str.length();i++){
-        count[str[i]]++;
-    }
-    for(int i=0;i<str.length();i++){
-        if(count[str[i]]>1)return i;
-    }
-    return -1;
-}
- 
-int main() 
-{ 
-    string str = "geeksforgeeks";
-    cout<<"Index of leftmost repeating character:"<<endl;
-    cout<<leftMost(str)<<endl;  
-    
-    return 0; 
-} 
+    // Initialize leftmost index of every
+    // character as -1.
+    int firstIndex[NO_OF_CHARS];
+    for (int i = 0; i < NO_OF_CHARS; i++)
+        firstIndex[i] = -1;
 
-// efficient 1
-#include <bits/stdc++.h> 
-using namespace std; 
-
-const int CHAR=256;
-int leftMost(string &str) 
-{
-    int fIndex[CHAR]={0};
-    fill(fIndex,fIndex+CHAR,-1);
-    int res=INT_MAX;
-    for(int i=0;i<str.length();i++){
-        int fi=fIndex[str[i]];
-        if(fi==-1)
-        fIndex[str[i]]=i;
+    // Traverse from left and update result
+    // if we see a repeating character whose
+    // first index is smaller than current
+    // result.
+    int res = INT_MAX;
+    for (int i = 0; i < str.length(); i++) {
+        if (firstIndex[str[i]] == -1)
+           firstIndex[str[i]] = i;
         else
-        res=min(res,fi);
+           res = min(res, firstIndex[str[i]]);
     }
-    
-    return (res==INT_MAX)?-1:res;
-}
- 
-int main() 
-{ 
-    string str = "geeksforgeeks";
-    cout<<"Index of leftmost repeating character:"<<endl;
-    cout<<leftMost(str)<<endl;  
-    
-    return 0; 
-} 
 
-// efficient 2
-#include <bits/stdc++.h> 
-using namespace std; 
-
-const int CHAR=256;
-int leftMost(string &str) 
-{
-    bool visited[CHAR];
-    fill(visited,visited+CHAR,false);
-    int res=-1;
-    for(int i=str.length()-1;i>=0;i--){
-        if(visited[str[i]])
-        res=i;
-        else
-        visited[str[i]]=true;
-    }
-    
-    return res;
+    return (res == INT_MAX) ? -1 : res;
 }
- 
-int main() 
-{ 
-    string str = "geeksforgeeks";
-    cout<<"Index of leftmost repeating character:"<<endl;
-    cout<<leftMost(str)<<endl;  
-    
-    return 0; 
-} 
