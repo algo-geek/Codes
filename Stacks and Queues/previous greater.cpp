@@ -26,6 +26,7 @@ int main()
 }
 
 // O(n)
+// store items in stack in decreasing order
 #include <bits/stdc++.h>
 using namespace std;
 
